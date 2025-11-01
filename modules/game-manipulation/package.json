@@ -1,0 +1,22 @@
+{
+	"name": "@dndevops/module-game-manipulation",
+	"private": true,
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js"
+		}
+	},
+	"scripts": {
+		"clean": "rimraf dist tsconfig.tsbuildinfo",
+		"build": "tsc --build"
+	},
+	"dependencies": {
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"typescript": "catalog:",
+		"rimraf": "catalog:"
+	}
+}

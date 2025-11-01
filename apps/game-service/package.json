@@ -1,0 +1,24 @@
+{
+	"name": "@dndevops/app-game-service",
+	"private": true,
+	"type": "module",
+	"main": "dist/index.js",
+
+	"scripts": {
+		"clean": "rimraf dist tsconfig.tsbuildinfo",
+		"build": "tsc --build && node build.mjs",
+		"start": "node ."
+	}, 
+
+	"dependencies": {
+		"@dndevops/module-game-simulation": "workspace:^",
+		"@dndevops/module-game-manipulation": "workspace:^",
+		"@dndevops/module-game-board-storage": "workspace:^"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"esbuild": "catalog:",
+		"typescript": "catalog:",
+		"rimraf": "catalog:"
+	}
+}

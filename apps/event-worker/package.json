@@ -1,0 +1,23 @@
+{
+	"name": "@dndevops/app-event-worker",
+	"private": true,
+	"type": "module",
+	"main": "dist/index.js",
+
+	"scripts": {
+		"clean": "rimraf dist tsconfig.tsbuildinfo",
+		"build": "tsc --build && node build.mjs",
+		"start": "node ."
+	}, 
+
+	"dependencies": {
+		"@dndevops/module-event-receiver": "workspace:^",
+		"@dndevops/module-event-worker": "workspace:^"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"esbuild": "catalog:",
+		"typescript": "catalog:",
+		"rimraf": "catalog:"
+	}
+}

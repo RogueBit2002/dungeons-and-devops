@@ -1,0 +1,15 @@
+{
+    "extends": "../../app.tsconfig.json",
+    "compilerOPtions": {
+        "rootDir": "./src",
+        "outDir": "./dist",
+
+        "noEmit": true,
+    },
+
+    "include": [ "src/**/*.ts" ],
+    "references": [
+        { "path": "../../modules/event-receiver" },
+        { "path": "../../modules/event-worker" }
+    ]
+}
