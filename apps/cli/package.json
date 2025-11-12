@@ -1,0 +1,22 @@
+{
+	"name": "@dndevops/app-cli",
+	"private": true,
+	"type": "module",
+	"main": "dist/index.js",
+
+	"scripts": {
+		"clean": "rimraf dist tsconfig.tsbuildinfo",
+		"build": "tsc --build && node build.mjs",
+		"start": "node ."
+	}, 
+
+	"dependencies": {
+		
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"esbuild": "catalog:",
+		"typescript": "catalog:",
+		"rimraf": "catalog:"
+	}
+}

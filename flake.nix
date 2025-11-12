@@ -23,5 +23,10 @@
 				echo "Have fun developing! <3"
 			'';
         };
+
+		packages.${system}.event-worker = pkgs.lib.dockerTools.buildImage {
+			name = "event-worker";
+			tag = "latest";
+		};
   	};
 }

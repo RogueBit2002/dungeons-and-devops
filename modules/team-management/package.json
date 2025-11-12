@@ -1,0 +1,22 @@
+{
+	"name": "@dndevops/module-team-management",
+	"private": true,
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js"
+		}
+	},
+	"scripts": {
+		"clean": "rimraf dist tsconfig.tsbuildinfo",
+		"build": "tsc --build"
+	},
+	"dependencies": {
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"typescript": "catalog:",
+		"rimraf": "catalog:"
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"name": "@dndevops/app-team-service",
+	"private": true,
+	"type": "module",
+	"main": "dist/index.js",
+
+	"scripts": {
+		"clean": "rimraf dist tsconfig.tsbuildinfo",
+		"build": "tsc --build && node build.mjs",
+		"start": "node ."
+	}, 
+
+	"dependencies": {
+		"@dndevops/module-team-management": "workspace:^"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"esbuild": "catalog:",
+		"typescript": "catalog:",
+		"rimraf": "catalog:"
+	}
+}
