@@ -1,22 +1,23 @@
 {
-	"name": "@dndevops/app-cli",
+	"name": "@dndevops/app-identity",
 	"private": true,
 	"type": "module",
 	"main": "dist/index.js",
-
 	"scripts": {
 		"clean": "rimraf dist tsconfig.tsbuildinfo",
 		"build": "tsc --build && node build.mjs",
 		"start": "node ."
-	}, 
-
+	},
 	"dependencies": {
-		
+		"@dndevops/module-identity": "workspace:^",
+		"@dndevops/library-identity": "workspace:^",
+		"@dndevops/library-errors": "workspace:^",
+		"effect": "catalog:"
 	},
 	"devDependencies": {
 		"@types/node": "catalog:",
 		"esbuild": "catalog:",
-		"typescript": "catalog:",
-		"rimraf": "catalog:"
+		"rimraf": "catalog:",
+		"typescript": "catalog:"
 	}
 }

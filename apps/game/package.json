@@ -1,5 +1,5 @@
 {
-	"name": "@dndevops/app-game-service",
+	"name": "@dndevops/app-game",
 	"private": true,
 	"type": "module",
 	"main": "dist/index.js",

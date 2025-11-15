@@ -1,5 +1,5 @@
 {
-	"name": "@dndevops/app-team-service",
+	"name": "@dndevops/app-event-handler",
 	"private": true,
 	"type": "module",
 	"main": "dist/index.js",
@@ -11,7 +11,8 @@
 	}, 
 
 	"dependencies": {
-		"@dndevops/module-team-management": "workspace:^"
+		"@dndevops/module-event-receiver": "workspace:^",
+		"@dndevops/module-event-worker": "workspace:^"
 	},
 	"devDependencies": {
 		"@types/node": "catalog:",

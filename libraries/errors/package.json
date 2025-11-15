@@ -1,0 +1,23 @@
+{
+	"name": "@dndevops/library-errors",
+	"private": true,
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js"
+		}
+	},
+	"scripts": {
+		"clean": "rimraf dist tsconfig.tsbuildinfo",
+		"build": "tsc --build"
+	},
+	"dependencies": {
+		"effect": "catalog:"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"rimraf": "catalog:",
+		"typescript": "catalog:"
+	}
+}

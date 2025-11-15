@@ -9,5 +9,8 @@
 
     "include": [ "src/**/*.ts" ],
     "references": [
+        { "path": "../../modules/identity" },
+        { "path": "../../libraries/identity" },
+        { "path": "../../libraries/errors" }
     ]
 }

@@ -1,12 +1,13 @@
 packages:
-  - apps/*
+  - services/*
   - modules/*
   - libraries/*
 
 catalog:
-  typescript: ^5.9.3
   '@types/node': ^24.9.2
+  effect: ^3.19.3
   esbuild: ^0.25.11
   rimraf: ^6.0.1
+  typescript: ^5.9.3
 
 injectWorkspacePackages: true
