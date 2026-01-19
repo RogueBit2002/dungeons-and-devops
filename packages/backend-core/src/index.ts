@@ -13,13 +13,14 @@ export class MailSender extends Context.Tag("@dndevops/backend-core/MailSender")
 (receiver: string, subject: string, content: string) => Effect.Effect<void, never, never>
 >(){
 	static readonly make = Effect.fn(function*(uri: string, sender: string) {
-		const transport = createTransport(uri);
+		const transport = createTransport(uri, {
+			socketTimeout: 5000,
+			greetingTimeout: 5000,
+			connectionTimeout: 5000
+		});
 
 		return Effect.fn(function*(receiver: string | string[], subject: string, content: string) {
-			console.log("sending mail!");
 			yield* Effect.promise(() => transport.sendMail({from: `<${sender}>`, to: receiver, subject, text: content}));
-			
-			console.log("Sent the mail!");
 		});
 	});
 };
