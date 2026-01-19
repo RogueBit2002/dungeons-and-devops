@@ -60,6 +60,3 @@ jobs:
           tags: |
             ghcr.io/${{ env.OWNER_LC }}/dndevops:${{ steps.docker-tag.outputs.TAG }}
             ghcr.io/${{ env.OWNER_LC }}/dndevops:${{ steps.docker-tag.outputs.VERSION }}${{ steps.docker-tag.outputs.SUFFIX }}
-      - name: Create image
-        run: docker build --file images/packed/Dockerfile . --tag dndevops:latest
-      
