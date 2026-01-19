@@ -14,7 +14,7 @@ import {
 import { NodeHttpServer, NodeRuntime } from "@effect/platform-node";
 
 
-import { Console, Effect, Either, Layer, Schema, flow, Config, pipe, Match } from "effect"
+import { Console, Effect, Either, Layer, Schema, flow, Config, pipe, Match, Logger } from "effect"
 
 import { createServer } from "node:http"
 
@@ -132,11 +132,11 @@ const HttpLive = HttpApiBuilder.serve(HttpMiddleware.logger).pipe(
 	Layer.provide(NodeHttpServer.layer(createServer, { port, host })),
 	
 	Layer.provide(appLayer),
-	Layer.provide(LiveAuthGatekeeper)
+	Layer.provide(LiveAuthGatekeeper),
+	Layer.annotateLogs("service", "GAME")
 );
 
 // Launch the server
-Layer.launch(HttpLive).pipe(NodeRuntime.runMain);
+Layer.launch(HttpLive).pipe(Effect.provide(Logger.json), NodeRuntime.runMain);
 
-
-Effect.runFork(eventListenerProgram);
+Effect.runFork(eventListenerProgram.pipe(Effect.annotateLogs("service", "GAME"), Effect.provide(Logger.json)));

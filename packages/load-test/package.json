@@ -1,0 +1,19 @@
+{
+	"name": "@dndevops/load-test",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js"
+		}
+	},
+	"devDependencies": {
+		"@types/jsonwebtoken": "catalog:",
+		"@types/k6": "^1.5.0"
+	},
+	"dependencies": {
+		"jsonwebtoken": "catalog:"
+	}
+}

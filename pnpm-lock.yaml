@@ -133,7 +133,7 @@ importers:
         version: 19.2.3(@types/react@19.2.7)
       esbuild-sass-plugin:
         specifier: ^3.3.1
-        version: 3.3.1(esbuild@0.27.2)(sass-embedded@1.97.1)
+        version: 3.3.1(esbuild@0.25.12)(sass-embedded@1.97.1)
 
   packages/app-game:
     dependencies:
@@ -254,6 +254,19 @@ importers:
       effect:
         specifier: 'catalog:'
         version: 3.19.12
+
+  packages/load-test:
+    dependencies:
+      jsonwebtoken:
+        specifier: 'catalog:'
+        version: 9.0.3
+    devDependencies:
+      '@types/jsonwebtoken':
+        specifier: 'catalog:'
+        version: 9.0.10
+      '@types/k6':
+        specifier: ^1.5.0
+        version: 1.5.0
 
 packages:
 
@@ -1274,6 +1287,9 @@ packages:
 
   '@types/jsonwebtoken@9.0.10':
     resolution: {integrity: sha512-asx5hIG9Qmf/1oStypjanR7iKTv0gXQ1Ov/jfrX6kS/EO0OFni8orbmGCn0672NHR3kXHwpAwR+B368ZGN/2rA==}
+
+  '@types/k6@1.5.0':
+    resolution: {integrity: sha512-eQmSjjgYO1irlOmoZzGSuoYsK2uMrX3m/flcnqt5IDLA9D/vkPcRsAKfe9D6GrjXATD/Oo9ynQ6vc13V02WRmQ==}
 
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
@@ -3423,6 +3439,8 @@ snapshots:
       '@types/ms': 2.1.0
       '@types/node': 24.10.4
 
+  '@types/k6@1.5.0': {}
+
   '@types/ms@2.1.0': {}
 
   '@types/node@24.10.4':
@@ -3661,9 +3679,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  esbuild-sass-plugin@3.3.1(esbuild@0.27.2)(sass-embedded@1.97.1):
+  esbuild-sass-plugin@3.3.1(esbuild@0.25.12)(sass-embedded@1.97.1):
     dependencies:
-      esbuild: 0.27.2
+      esbuild: 0.25.12
       resolve: 1.22.11
       safe-identifier: 0.4.2
       sass: 1.97.1

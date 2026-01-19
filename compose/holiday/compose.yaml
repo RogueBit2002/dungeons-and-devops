@@ -22,6 +22,8 @@ services:
 
   mailpit:
     image: axllent/mailpit:latest
+    environment:
+      MP_UI_AUTH: mail:1234hvp
 
   db:
     image: postgres:18.1

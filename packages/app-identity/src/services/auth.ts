@@ -119,6 +119,8 @@ export class AuthenticationService extends Effect.Service<AuthenticationService>
 					expires_at: new Date(expiresAt.epochMillis)
 				}));
 
+				yield* Effect.logInfo("Refresh token generated").pipe(Effect.annotateLogs({client: email}));
+
 				return refreshToken;
 			}),
 
@@ -178,6 +180,8 @@ export class AuthenticationService extends Effect.Service<AuthenticationService>
 						salt,
 						expires_at: new Date(expiresAt.epochMillis)
 					}).where(eq(refreshTokenTable.id, tokenId)));
+					
+					yield* Effect.logInfo("Refresh token swapped").pipe(Effect.annotateLogs({client: email}));
 				}
 
 				{

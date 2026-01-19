@@ -13,6 +13,7 @@
 			nodejs_22
 			bun
 			caddy
+			k6
 		];
 	in {
 		devShells.${system}.default = pkgs.mkShell {

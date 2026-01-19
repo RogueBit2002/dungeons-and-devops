@@ -26,16 +26,21 @@ export class BoardStorageService extends Effect.Service<BoardStorageService>()('
 
 				const data: BoardData = { tiles: Array.from({ length: 9}, () => null) };
 
-				yield* drizzle.use(async db => db.insert(boardTable).values({
+				const r = yield* drizzle.use(async db => db.insert(boardTable).values({
 					team,
 					data,
-				}).onConflictDoNothing());
+				}).onConflictDoNothing().returning());
+
+				if(r.length > 0)
+					yield* Effect.logInfo("Board created").pipe(Effect.annotateLogs({ team, client: principal.email }));
 			}),
 			deleteBoard: Effect.fn(function*(principal: Principal, team: TeamID) {
 				if(!principal.admin)
 					return yield* new InvalidPermissionsError;
 
-				yield* drizzle.use(async db => db.delete(boardTable).where(eq(boardTable.team, team)));
+				const r= yield* drizzle.use(async db => db.delete(boardTable).where(eq(boardTable.team, team)).returning());
+				if(r.length > 0)
+					yield* Effect.logInfo("Board deleted").pipe(Effect.annotateLogs({ team, client: principal.email }));
 			}),
 			getBoard: Effect.fn(function*(principal: Principal, team: TeamID) {
 				const rows = yield* drizzle.use(async db => db.select().from(boardTable).where(eq(boardTable.team, team)));

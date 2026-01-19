@@ -51,6 +51,11 @@ export class TeamService extends Effect.Service<TeamService>()('@dndevops/app-id
 
 				yield* amqp.use(async conn => channel.publish(exchange.exchange, event.routingKey, Buffer.from(JSON.stringify(Schema.encodeSync(TeamCreatedEvent)(event)))));
 
+				yield* Effect.logInfo(`Team created`).pipe(Effect.annotateLogs({
+					teamId: id,
+					displayName,
+					client: principal.email
+				}));
 				return id as TeamID;
 			}),
 
@@ -67,6 +72,11 @@ export class TeamService extends Effect.Service<TeamService>()('@dndevops/app-id
 				
 				yield* amqp.use(async conn => channel.publish(exchange.exchange, event.routingKey, Buffer.from(JSON.stringify(Schema.encodeSync(TeamDeletedEvent)(event)))));
 
+				yield* Effect.logInfo(`Team deleted`).pipe(Effect.annotateLogs({
+					teamId: id,
+					client: principal.admin
+				}));
+
 			}),
 
 			updateTeam: Effect.fn(function*(principal: Principal, id: TeamID, displayName: string) {
@@ -77,6 +87,8 @@ export class TeamService extends Effect.Service<TeamService>()('@dndevops/app-id
 
 				if(change.rowCount ?? 0 == 0)
 					return yield* new TeamNotFoundError;
+
+				yield* Effect.logInfo("Team updated").pipe(Effect.annotateLogs({ teamId: id, displayName, client: principal.email }));
 			}),
 			
 			assignUserToTeam: Effect.fn(function*(principal: Principal, team: TeamID, email: string) {
@@ -90,6 +102,8 @@ export class TeamService extends Effect.Service<TeamService>()('@dndevops/app-id
 
 				// Just ignore double assignments, it's fine
 				yield* drizzle.use(async db => db.insert(teamMemberTable).values({ email, id: team }).onConflictDoNothing());
+
+				yield* Effect.logInfo("User assigned").pipe(Effect.annotateLogs({ teamId: team, user: email, client: principal.email }));
 			}),
 
 			removeUserFromTeam: Effect.fn(function*(principal: Principal, team: TeamID, email: string) {
@@ -97,6 +111,8 @@ export class TeamService extends Effect.Service<TeamService>()('@dndevops/app-id
 					return yield* new InvalidPermissionsError;
 
 				yield* drizzle.use(async db => db.delete(teamMemberTable).where(and(eq(teamMemberTable.email, email), eq(teamMemberTable.id, team))));
+
+				yield* Effect.logInfo("User removed").pipe(Effect.annotateLogs({ teamId: team, user: email, client: principal.email }));
 			}),
 		};
 	})

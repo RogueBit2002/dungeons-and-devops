@@ -5,7 +5,7 @@ import {
 	HttpServer
 } from "@effect/platform"
 import { NodeHttpServer, NodeRuntime } from "@effect/platform-node"
-import { Console, Effect, Either, Layer, Schema, flow, Config } from "effect"
+import { Console, Effect, Either, Layer, Schema, flow, Config, Logger } from "effect"
 
 import { createServer } from "node:http"
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
@@ -55,6 +55,8 @@ const amqpLayer = Layer.scoped(
 	})
 );
 
+Layer.annotateLogs("service", "IDENTITY");
+
 const coreLayer = Layer.mergeAll(mailLayer, drizzleLayer, amqpLayer);
 
 const appLayer = Layer.mergeAll(AuthenticationService.Default, TeamService.Default).pipe(Layer.provide(coreLayer));
@@ -67,6 +69,11 @@ const { port, host } = Effect.runSync(Effect.gen(function*() {
 		host: yield* Config.string("DNDEVOPS_HTTP_HOST").pipe(Config.withDefault("0.0.0.0"))
 	}
 }));
+
+// Use JSON logger for production (or Logger.pretty for dev)
+const LoggerLive = Logger.json
+// Annotate all logs from this layer with service name
+
 const HttpLive = HttpApiBuilder.serve(HttpMiddleware.logger).pipe(
 	// Add CORS middleware to handle cross-origin requests
 	Layer.provide(HttpApiBuilder.middlewareCors()),
@@ -78,8 +85,9 @@ const HttpLive = HttpApiBuilder.serve(HttpMiddleware.logger).pipe(
 	Layer.provide(NodeHttpServer.layer(createServer, { port, host })),
 	
 	Layer.provide(appLayer),
-	Layer.provide(LiveAuthGatekeeper)
+	Layer.provide(LiveAuthGatekeeper),
+	Layer.annotateLogs("service","IDENTITY")
 );
 
 // Launch the server
-Layer.launch(HttpLive).pipe(NodeRuntime.runMain);
+Layer.launch(HttpLive).pipe(Effect.provide(Logger.json), NodeRuntime.runMain);
