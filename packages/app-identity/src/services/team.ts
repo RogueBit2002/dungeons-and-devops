@@ -30,7 +30,7 @@ export class TeamService extends Effect.Service<TeamService>()('@dndevops/app-id
 				if(!teamData)
 					return yield* new TeamNotFoundError;
 
-				const members = yield* drizzle.use(async db => db.select().from(teamMemberTable).where(eq(teamTable.id, id)));
+				const members = yield* drizzle.use(async db => db.select().from(teamMemberTable).where(eq(teamMemberTable.id, id)));
 
 				return { 
 					id,

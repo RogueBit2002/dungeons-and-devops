@@ -33,20 +33,13 @@ const identityGroupLive = HttpApiBuilder.group(IsolatedApi, "Identity", (handler
 		const authService = yield* AuthenticationService;
 
 		const encoded = headers.authorization.substring("Basic ".length);
-
-		console.log(encoded);
 		const decoded = atob(encoded);
 
-		
-		console.log(decoded);
 		const [ email, code ] = decoded.split(":");
-
-		console.log(`email: ${email} || code: ${code}`);
 
 		if(email == undefined || code == undefined)
 			return yield*  new UnauthorizedError;
 
-		
 		const either = yield* Effect.either(authService.getRefreshToken(email, code));
 
 		//Wtf is going on?? left is right and right is left????

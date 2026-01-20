@@ -23,7 +23,7 @@ export class AuthenticationService extends Effect.Service<AuthenticationService>
 		const drizzle = yield* DrizzleService;
 		const REFRESH_CODE_LENGTH = 6;
 
-		const hash = Effect.fnUntraced(function*(value: string, salt: string) { return crypto.createHash("SHA-256").update(value+salt).digest("hex"); });
+		const hash = Effect.fnUntraced(function*(value: string, salt: string) { return crypto.createHash("SHA-256").update(value).update(salt).digest("hex"); });
 		const makeSalt = Effect.fnUntraced(function*() { return crypto.randomBytes(16).toString("hex"); });
 
 		const getTeamsByUser = Effect.fnUntraced(function*(email: string) {
